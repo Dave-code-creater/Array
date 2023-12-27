@@ -9,16 +9,25 @@ int main(void)
 
     printf("Hello World\n");
 
-    int* arr = NULL;
-    int length = Length_Of_Array();
 
+    int* length = (int*)malloc(sizeof(int));
+    *length = 0;
 
-    printf("The length of the array: %d\n",length);
+    int* array = Create_Array();
 
-    arr = Create_Array_3X3_Size();
+    array = Insert(array, length, 1);
+    array = Insert(array, length, 2);
+    array = Insert(array, length, 3);
+    array = Insert(array, length, 4);
+    array = Insert(array, length, 5);
+    array = Insert(array, length, 6);
+    array = Insert(array, length, 1);
 
-    Print_3x3_Size(arr);
+    length = Length(array);
+
+    bool contains_duplicate = Contains_Duplicate_Element(array, length);
+    printf("Contains duplicate: %s\n", contains_duplicate ? "true" : "false");
     
-    free(arr);
+    free(array);
     return 0;
 }
