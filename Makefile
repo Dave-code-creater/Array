@@ -15,11 +15,11 @@ TESTDIR = test
 BUILDDIR = build
 
 # Object files to build
-OBJFILES = $(BUILDDIR)/main.o $(BUILDDIR)/array.o
+OBJFILES = $(BUILDDIR)/main.o $(BUILDDIR)/array.o $(BUILDDIR)/utils.o
 
 # Target executables
 TARGET = $(BUILDDIR)/array
-TESTTARGET = $(BUILDDIR)/test
+
 
 # Search path for source files
 VPATH = $(SRCDIR):$(TESTDIR)
@@ -39,17 +39,11 @@ $(BUILDDIR)/main.o: main.c include/array.h | $(BUILDDIR)
 $(BUILDDIR)/array.o: array.c include/array.h | $(BUILDDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Test target: Compile and run unit tests
-test: $(TESTTARGET)
-	./$(TESTTARGET)
+# Target to build the utils.c 
+$(BUILDDIR)/utils.o: utils.c include/array.h | $(BUILDDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
-# Target to build the test executable
-$(TESTTARGET): test.c include/array.h array.c | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(TESTFLAGS) -o $(TESTTARGET) $^
 
-# Target to generate tests
-generate_tests: $(TESTTARGET)
-	./$(TESTTARGET) < test/test_case_1.txt
 
 # Create the build directory if it doesn't exist
 $(BUILDDIR):
