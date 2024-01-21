@@ -6,12 +6,14 @@
 
 
 
-extern void Read_From_File(int* array,int* Length,char* name)
+void Read_From_File(int* array,char* name)
 {
     struct dirent * de;  // Pointer for directory entry
     DIR *dr;
 
-    if (dr = opendir("data") == NULL)
+    dr = opendir("./data");
+
+    if (dr == NULL)
     {
         printf("Error: Directory not found\n");
         exit(EXIT_FAILURE);
@@ -23,12 +25,18 @@ extern void Read_From_File(int* array,int* Length,char* name)
         printf("Error: File not found\n");
         exit(EXIT_FAILURE);
     }
+    // Read the first line of the file
+
+    char buffer[255];
+    fgets(buffer, 60, file_pointer);
+    
     while ((de = readdir(dr)) != NULL)
     {
         while(fgets(buffer, 60, file_pointer)!=NULL )
         {
-            array = Insert(array, Length, atoi(buffer));
+            array = Insert(array, buffer, atoi(buffer));
         }
     }
-            
+    fclose(file_pointer);
+    closedir(dr);
 }
