@@ -1,6 +1,17 @@
 #ifndef MY_HEADER_H__
 #define MY_HEADER_H__
 
+// Include the standard library.
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdbool.h>
+#include <dirent.h>
+#include <sys/types.h>
+#include <limits.h>
+#include "array.h"
+#include <time.h>
+
+
 extern char file_name[255];
 extern char buffer[255];
 
@@ -73,6 +84,6 @@ int* Create_Array_3X3_Size(void);
 void Print_3x3_Size(int* Array);
 int RemoveDuplicates(int* Array, int Length);
 
-void Read_From_File(int* array, char* name);
+int* Read_From_File(int* array,const char* file_name);
 
 #endif  // MY_HEADER_H__

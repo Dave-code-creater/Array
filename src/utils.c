@@ -1,42 +1,46 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <dirent.h>
 #include "array.h"
 
-
-
-void Read_From_File(int* array,char* name)
-{
-    struct dirent * de;  // Pointer for directory entry
-    DIR *dr;
-
-    dr = opendir("./data");
-
-    if (dr == NULL)
-    {
-        printf("Error: Directory not found\n");
-        exit(EXIT_FAILURE);
-    }
-
-    FILE* file_pointer = fopen(name, "r"); 
-    if (file_pointer == NULL)
-    {
+int* Read_The_Size_File(char* file_name) {
+    char* buffer_size = (char*)malloc(sizeof(char));
+    FILE* file = fopen(file_name, "r");
+    if (file == NULL) {
         printf("Error: File not found\n");
         exit(EXIT_FAILURE);
     }
-    // Read the first line of the file
+    fscanf(file, "%[^\n]", buffer_size);
+    int* length = (int*)malloc(sizeof(int));
+    *length = atoi(buffer_size);
 
-    char buffer[255];
-    fgets(buffer, 60, file_pointer);
-    
-    while ((de = readdir(dr)) != NULL)
-    {
-        while(fgets(buffer, 60, file_pointer)!=NULL )
-        {
-            array = Insert(array, buffer, atoi(buffer));
-        }
+    fclose(file);
+    return length;
+}
+
+int* Read_Content_From_File(int* array,const char* file_name, int* length) {
+    FILE* file = fopen(file_name, "r");
+    if (file == NULL) {
+        printf("Error: File not found\n");
+        exit(EXIT_FAILURE);
     }
-    fclose(file_pointer);
-    closedir(dr);
+    // Skip the first line
+    char buffer[100];
+    fgets(buffer, sizeof(buffer), file);
+
+    array = (int*)malloc((*length + 1) * sizeof(int));
+    for (int i = 0; i < *length; i++) {
+        fscanf(file, "%d", &array[i]);
+    }
+    array[*length] = INT_MIN;
+    fclose(file);
+    return array;
+}
+
+int* Read_From_File(int* array,const char* file_name) {
+    int* length = Read_The_Size_File(file_name);
+    array = Read_Content_From_File(array, file_name, length);
+    return array;
+}
+
+void Write_Additional_Information(const char* file_name)
+{
+    ;
 }

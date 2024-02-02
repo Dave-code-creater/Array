@@ -1,34 +1,16 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <string.h>
 #include "array.h"
 
 int main(void)
 {
-
     system("clear");
 
     printf("Hello World\n");
 
-    char file_name[] = "data/1.txt";
-    int buffer[255];
+    char file_name[] = "/home/dave/workstation/Array/data/test.txt";
+    int* array = Create_Array();
+    array = Read_From_File(array, file_name);
+    int* length = Length(array);
 
-    int *length = (int *)malloc(sizeof(int));
-    *length = 0;
-
-    int *array = Create_Array();
-    Read_From_File(array, file_name);
-
-    // array = Insert(array, length, 1);
-    // array = Insert(array, length, 2);
-    // array = Insert(array, length, 3);
-    // array = Insert(array, length, 4);
-    // array = Insert(array, length, 5);
-    // array = Insert(array, length, 6);
-    // array = Insert(array, length, 1);
-
-    length = Length(array);
     Read_Array(array, length);
 
     // bool contains_duplicate = Contains_Duplicate_Element(array, length);

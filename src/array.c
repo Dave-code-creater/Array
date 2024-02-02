@@ -1,8 +1,5 @@
 // array.c
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
-#include <limits.h>
+
 #include "array.h"
 
 // Function to calculate the length of the array (excluding the INT_MIN terminator)
