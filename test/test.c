@@ -1,36 +1,14 @@
-#include "array.h"
-#include <stdlib.h>
-#include <stdio.h>
-#include <assert.h>
+#include "Array/include/array.h"
+#include "gtest/gtest.h"
 
-int main(void)
-{
-    FILE* fptr = fopen("test_case_1.txt", "r");
-    int* test = Create_Array();
-
-    if (fptr == NULL)
-    {
-        perror("Error opening file");
-        exit(EXIT_FAILURE);
+TEST(ReadFromFile, ReadFromFile) {
+    char file_name[] = "/home/dave/workstation/Array/data/test.txt";
+    int* array = Create_Array();
+    array = Read_From_File(array, file_name);
+    int* length = Length(array);
+    int expected[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+    for (int i = 0; i < *length; i++) {
+        EXPECT_EQ(array[i], expected[i]);
     }
-    char buffer[sizeof(int)];
-
-    int* Length = fgets(buffer, sizeof(buffer), fptr);
-
-    for (int i = 0 ; i < *Length; i++)
-    {
-        test = Insert(test, Length, fgets(buffer, sizeof(buffer), fptr));
-    }
-
-    Read_Array(test, Length);
-
-    fclose(fptr);
-    free(test);
-
-
-    int* test = Create_Array();
-
-
-
-
+    free(array);
 }

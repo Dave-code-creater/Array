@@ -7,6 +7,9 @@ CFLAGS = -g -Wall -Iinclude
 # Linker flags
 LDFLAGS =
 
+# Valgrind flags
+VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
+
 TESTFLAGS = -fprofile-arcs -ftest-coverage
 
 # Directory names
@@ -14,6 +17,7 @@ SRCDIR = src
 TESTDIR = test
 BUILDDIR = build
 LIBDIR = libs
+VALGRINDDIR = valgrind
 
 # Lib name 
 LIB_NAME = array
@@ -58,6 +62,14 @@ $(BUILDDIR)/utils.o: utils.c include/array.h | $(BUILDDIR)
 # Create the build directory if it doesn't exist
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
+
+# Create the lib directory if it doesn't exist
+$(LIBDIR):
+	mkdir -p $(LIBDIR)
+
+# Write a valgrind log file
+valgrind: $(TARGET) | $(VALGRINDDIR)
+	$(VALGRIND) $(TARGET) 2> $(VALGRINDDIR)/valgrind.log
 
 # Target to clean up object files, executables, and test files
 clean:
