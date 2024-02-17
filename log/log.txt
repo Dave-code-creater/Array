@@ -1,0 +1,4 @@
+11/1/2024
+Today is my birthday
+
+try to write some helping function to read from other file to make unit test

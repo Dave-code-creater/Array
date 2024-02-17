@@ -13,23 +13,35 @@ TESTFLAGS = -fprofile-arcs -ftest-coverage
 SRCDIR = src
 TESTDIR = test
 BUILDDIR = build
+LIBDIR = libs
+
+# Lib name 
+LIB_NAME = array
+
 
 # Object files to build
-OBJFILES = $(BUILDDIR)/main.o $(BUILDDIR)/array.o
+OBJFILES = $(BUILDDIR)/main.o $(BUILDDIR)/array.o $(BUILDDIR)/utils.o
 
 # Target executables
 TARGET = $(BUILDDIR)/array
-TESTTARGET = $(BUILDDIR)/test
 
 # Search path for source files
-VPATH = $(SRCDIR):$(TESTDIR)
+VPATH = $(SRCDIR)
 
 # Default target
-all: $(TARGET)
+all: $(TARGET) $(LIBDIR)/lib$(LIB_NAME).a $(LIBDIR)/lib$(LIB_NAME).so
 
 # Target to build the executable
 $(TARGET): $(OBJFILES) | $(BUILDDIR)
 	$(CC) $(CFLAGS) -o $(TARGET) -ggdb $(OBJFILES) $(LDFLAGS)
+
+# Target to build static library
+$(LIBDIR)/lib$(LIB_NAME).a: $(OBJFILES) | $(LIBDIR)
+	ar rcs $@ $^
+
+# Target to build dynamic library
+$(LIBDIR)/lib$(LIB_NAME).so: $(OBJFILES) | $(LIBDIR)
+	$(CC) $(CFLAGS) -o $@ $^
 
 # Target to build main.o
 $(BUILDDIR)/main.o: main.c include/array.h | $(BUILDDIR)
@@ -39,23 +51,13 @@ $(BUILDDIR)/main.o: main.c include/array.h | $(BUILDDIR)
 $(BUILDDIR)/array.o: array.c include/array.h | $(BUILDDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-# Test target: Compile and run unit tests
-test: $(TESTTARGET)
-	./$(TESTTARGET)
-
-# Target to build the test executable
-$(TESTTARGET): test.c include/array.h array.c | $(BUILDDIR)
-	$(CC) $(CFLAGS) $(TESTFLAGS) -o $(TESTTARGET) $^
-
-# Target to generate tests
-generate_tests: $(TESTTARGET)
-	./$(TESTTARGET) < test/test_case_1.txt
+# Target to build the utils.c 
+$(BUILDDIR)/utils.o: utils.c include/array.h | $(BUILDDIR)
+	$(CC) $(CFLAGS) -c $< -o $@
 
 # Create the build directory if it doesn't exist
 $(BUILDDIR):
 	mkdir -p $(BUILDDIR)
-
-
 
 # Target to clean up object files, executables, and test files
 clean:

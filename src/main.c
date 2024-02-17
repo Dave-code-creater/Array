@@ -1,6 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stdbool.h>
 #include "array.h"
 
 int main(void)
@@ -9,25 +6,16 @@ int main(void)
 
     printf("Hello World\n");
 
-
-    int* length = (int*)malloc(sizeof(int));
-    *length = 0;
-
+    char file_name[] = "/home/dave/workstation/Array/data/test.txt";
     int* array = Create_Array();
+    array = Read_From_File(array, file_name);
+    int* length = Length(array);
 
-    array = Insert(array, length, 1);
-    array = Insert(array, length, 2);
-    array = Insert(array, length, 3);
-    array = Insert(array, length, 4);
-    array = Insert(array, length, 5);
-    array = Insert(array, length, 6);
-    array = Insert(array, length, 1);
+    Read_Array(array, length);
 
-    length = Length(array);
+    // bool contains_duplicate = Contains_Duplicate_Element(array, length);
+    // printf("Contains duplicate: %s\n", contains_duplicate ? "true" : "false");
 
-    bool contains_duplicate = Contains_Duplicate_Element(array, length);
-    printf("Contains duplicate: %s\n", contains_duplicate ? "true" : "false");
-    
     free(array);
     return 0;
 }
