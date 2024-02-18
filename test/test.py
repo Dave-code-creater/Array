@@ -36,7 +36,7 @@ def Load_Test_Case():
 def Read_From_File(filename) -> list:
     with open(filename, "r") as file:
         length = int(file.readline())
-        array = [int(file.readline()) for x in range(length+1)]  
+        array = [int(file.readline()) for x in range(length)]  
         return array 
 
 if __name__ == '__main__':
