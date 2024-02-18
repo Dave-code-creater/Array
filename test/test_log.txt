@@ -1,0 +1,50 @@
+
+Test Case: test/test_case_1.txt
+Status: Pass
+Array Pointer: [66, -43, 36, -19, -98, 63, -16, 68, 52, -5]
+Length Pointer: 10
+
+Test Case: test/test_case_2.txt
+Status: Pass
+Array Pointer: [-94]
+Length Pointer: 1
+
+Test Case: test/test_case_3.txt
+Status: Pass
+Array Pointer: [-35, -42, -72, -27, 38, 7, 6, 0]
+Length Pointer: 8
+
+Test Case: test/test_case_4.txt
+Status: Pass
+Array Pointer: [15, -26, -9, 93]
+Length Pointer: 4
+
+Test Case: test/test_case_5.txt
+Status: Pass
+Array Pointer: [-34, -95, 84, -13, -47, -28, 52]
+Length Pointer: 7
+
+Test Case: test/test_case_6.txt
+Status: Pass
+Array Pointer: [-29, 42, -59, -98]
+Length Pointer: 4
+
+Test Case: test/test_case_7.txt
+Status: Pass
+Array Pointer: [-96, 0, 83, -13, 55, -1, -57, 87, 68]
+Length Pointer: 9
+
+Test Case: test/test_case_8.txt
+Status: Pass
+Array Pointer: [-4]
+Length Pointer: 1
+
+Test Case: test/test_case_9.txt
+Status: Pass
+Array Pointer: [20, 80, -84, 93, -92, 73, -26, 26, -6]
+Length Pointer: 9
+
+Test Case: test/test_case_10.txt
+Status: Pass
+Array Pointer: [78, 83, -99, -93, -13, -75]
+Length Pointer: 6
