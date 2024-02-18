@@ -22,4 +22,4 @@ for i in file_range:
     # Write the number of elements to the first line
     f.write(f"{num_elements}\n")
     # Write the array elements to the second line, separated by spaces
-    f.write(" ".join(map(str, array)) + "\n")
+    f.write("\n".join(map(str, array)))
