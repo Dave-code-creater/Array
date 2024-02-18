@@ -5,7 +5,7 @@ CC = gcc
 CFLAGS = -g -Wall -Iinclude -fPIC
 
 # Linker flags
-LDFLAGS = --export-dynamic
+LDFLAGS = -export-dynamic
 
 # Directory names
 SRCDIR = src
