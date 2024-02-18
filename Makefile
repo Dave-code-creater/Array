@@ -3,14 +3,13 @@ CC = gcc
 
 # Compiler flags
 CFLAGS = -g -Wall -Iinclude
-
+CFLAGS += -I$(GTEST_DIR)
 # Linker flags
-LDFLAGS =
+LDFLAGS += -L$(GTEST_DIR) -lgtest -lgtest_main
 
 # Valgrind flags
 VALGRIND = valgrind --leak-check=full --show-leak-kinds=all --track-origins=yes
 
-TESTFLAGS = -fprofile-arcs -ftest-coverage
 
 # Directory names
 SRCDIR = src
@@ -18,6 +17,7 @@ TESTDIR = test
 BUILDDIR = build
 LIBDIR = libs
 VALGRINDDIR = valgrind
+GTEST_DIR = gtest
 
 # Lib name 
 LIB_NAME = array
@@ -58,6 +58,18 @@ $(BUILDDIR)/array.o: array.c include/array.h | $(BUILDDIR)
 # Target to build the utils.c 
 $(BUILDDIR)/utils.o: utils.c include/array.h | $(BUILDDIR)
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# Add a rule for building GTest
+$(GTEST_DIR)/gtest-all.o: $(GTEST_DIR)/gtest-all.cc
+	$(CC) $(CFLAGS) -c $< -o $@
+
+# Add a rule for building your test executable
+$(BUILDDIR)/test: $(OBJFILES) $(GTEST_DIR)/gtest-all.o | $(BUILDDIR)
+	$(CC) $(CFLAGS) -o $@ -ggdb $(OBJFILES) $(GTEST_DIR)/gtest-all.o $(LDFLAGS)
+
+# Run your tests
+test: $(BUILDDIR)/test
+	./$(BUILDDIR)/test
 
 # Create the build directory if it doesn't exist
 $(BUILDDIR):
